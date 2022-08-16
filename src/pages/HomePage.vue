@@ -1,36 +1,49 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo" class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+<div class="home-page">
+  <div class="container-fluid">
+    <div class="row d-flex justify-content-center text-center">
+      <div class="col-md-8">
+        {{this.title}}
+      </div>
     </div>
   </div>
+</div>
+
 </template>
 
-<script>
-export default {
-  name: 'Home'
-}
-</script>
 
-<style scoped lang="scss">
-.home{
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-  .home-card{
-    width: 50vw;
-    > img{
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
+
+<script>
+import { computed, onMounted } from '@vue/runtime-core'
+import { logger } from '../utils/Logger.js'
+import Pop from '../utils/Pop.js'
+import { AppState } from '../AppState.js'
+import {nasaService} from '../services/NasaService.js'
+
+export default {
+  setup() { 
+    async function getNasa() {
+      try {
+        await nasaService.getNasa()
+      } catch (error) {
+        logger.error('[getting nasa]', error)
+        Pop.error(error)
+      }
+    }
+
+    onMounted(() => {
+      getNasa()
+    })
+
+    return {
+      nasa: computed(() => AppState.nasa)
     }
   }
 }
+
+</script>
+
+<style scoped lang="scss">
+
 </style>
+
