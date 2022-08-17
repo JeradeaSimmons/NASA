@@ -1,14 +1,9 @@
 <template>
-<div class="home-page">
-  <div class="container-fluid">
-    <div class="row d-flex justify-content-center text-center">
-      <div class="col-md-8">
-        {{this.title}}
-      </div>
-    </div>
+<div class="container-fluid">
+<div class="row" v-for="n in nasa" :key="n.title">
+  <div class="col-10">{{n.title}}</div>
   </div>
 </div>
-
 </template>
 
 
@@ -21,22 +16,22 @@ import { AppState } from '../AppState.js'
 import {nasaService} from '../services/NasaService.js'
 
 export default {
-  setup() { 
-    async function getNasa() {
+  setup() {
+    
+    onMounted(async () => {
       try {
-        await nasaService.getNasa()
+        await nasaService.getNasa();
       } catch (error) {
-        logger.error('[getting nasa]', error)
-        Pop.error(error)
+         logger.error(error)
       }
-    }
-
-    onMounted(() => {
-      getNasa()
-    })
+    });
+    
 
     return {
-      nasa: computed(() => AppState.nasa)
+      
+      nasa: computed(() => AppState.nasa),
+      
+      
     }
   }
 }

@@ -1,5 +1,4 @@
 import { AppState } from "../AppState.js"
-import { Nasa } from "../models/Nasa.js"
 import { spaceApi } from "./AxiosService.js"
 
 
@@ -7,8 +6,9 @@ import { spaceApi } from "./AxiosService.js"
 
 class NasaService {
     async getNasa() {
-        const res = await spaceApi.get('/?')
+        const res = await spaceApi.get('')
 
+        logger.log('RES DATA', res.data);
         AppState.nasa = res.data.results
 
     }
