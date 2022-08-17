@@ -1,7 +1,7 @@
 <template>
 <div class="container-fluid">
 <div class="row" v-for="n in nasa" :key="n.title">
-  <div class="col-10">{{n.title}}</div>
+  <div class="col-10">{{title}}</div>
   </div>
 </div>
 </template>
@@ -11,7 +11,6 @@
 <script>
 import { computed, onMounted } from '@vue/runtime-core'
 import { logger } from '../utils/Logger.js'
-import Pop from '../utils/Pop.js'
 import { AppState } from '../AppState.js'
 import {nasaService} from '../services/NasaService.js'
 

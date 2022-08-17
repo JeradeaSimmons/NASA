@@ -8,7 +8,7 @@ class NasaService {
     async getNasa() {
         const res = await spaceApi.get('')
 
-        logger.log('RES DATA', res.data);
+        console.log('RES DATA', res.data);
         AppState.nasa = res.data.results
 
     }
